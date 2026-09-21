@@ -181,21 +181,37 @@ export const DailyEntryModal: React.FC<DailyEntryModalProps> = ({
           </button>
         </div>
 
-        {/* ================= STAGE 1: NHẬP TỪNG CHỈ TIÊU (Section VII & VIII) ================= */}
+        {/* ================= THANH CHỈ BÁO TIẾN ĐỘ (PROGRESS INDICATOR BƯỚC 1/7) PHÍA TRÊN CÙNG FORM ================= */}
         {stage === 'INPUT' && (
-          <div className="p-4 sm:p-5 flex-1 overflow-y-auto space-y-4">
-            {/* Step indicator header */}
-            <div className="flex items-center justify-between text-xs">
-              <span className="font-extrabold text-[#0072CE] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                BƯỚC {currentIndex + 1}/{activeKpis.length}
-              </span>
-              <span className="text-slate-400 font-medium">
-                {currentKpi.dataType === 'CURRENCY' ? 'Chỉ tiêu tiền tệ (VNĐ)' : 'Chỉ tiêu số lượng'}
-              </span>
+          <div className="bg-gradient-to-r from-blue-50/80 via-slate-50 to-blue-50/80 px-4 py-3 border-b border-slate-200 space-y-2">
+            {/* Header: Bước 1/7 và % tiến độ */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <span className="px-2.5 py-1 rounded-lg text-xs font-black bg-[#003B70] text-white shadow-xs tracking-wide">
+                  Bước {currentIndex + 1}/{activeKpis.length}
+                </span>
+                <span className="text-xs font-bold text-slate-800 truncate max-w-[180px] sm:max-w-[220px]">
+                  {currentKpi.name}
+                </span>
+              </div>
+
+              <div className="text-right">
+                <span className="text-xs font-extrabold text-[#0072CE] font-mono">
+                  {Math.round(((currentIndex + 1) / activeKpis.length) * 100)}%
+                </span>
+              </div>
             </div>
 
-            {/* Step Dots Indicator */}
-            <div className="flex items-center justify-center space-x-1.5 py-1">
+            {/* Thanh tiến độ trực quan (Visual Progress Bar) */}
+            <div className="w-full bg-slate-200/90 h-2 rounded-full overflow-hidden shadow-inner">
+              <div
+                className="bg-gradient-to-r from-[#003B70] via-[#0072CE] to-blue-400 h-full rounded-full transition-all duration-300 ease-out shadow-xs"
+                style={{ width: `${((currentIndex + 1) / activeKpis.length) * 100}%` }}
+              />
+            </div>
+
+            {/* 7 Bước chỉ tiêu dạng Pills tương tác nhanh */}
+            <div className="flex items-center justify-between gap-1 pt-0.5">
               {activeKpis.map((k, idx) => {
                 const isDone = dailyEntries.some(
                   (e) => e.userId === currentUser.id && e.kpiId === k.id && e.date === selectedDate
@@ -205,19 +221,30 @@ export const DailyEntryModal: React.FC<DailyEntryModalProps> = ({
                   <button
                     key={k.id}
                     onClick={() => handleJumpToStep(idx)}
-                    title={k.name}
-                    className={`transition-all rounded-full ${
+                    title={`Bước ${idx + 1}/${activeKpis.length}: ${k.name} (${isDone ? 'Đã nhập' : 'Chưa nhập'})`}
+                    className={`flex-1 py-1 px-0.5 rounded text-[10px] font-bold transition-all flex items-center justify-center cursor-pointer ${
                       isCurrent
-                        ? 'w-6 h-2.5 bg-[#0072CE]'
+                        ? 'bg-[#0072CE] text-white ring-2 ring-blue-300 shadow-xs'
                         : isDone
-                        ? 'w-2.5 h-2.5 bg-emerald-500'
-                        : 'w-2.5 h-2.5 bg-slate-200 hover:bg-slate-300'
+                        ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
+                        : 'bg-slate-200/70 text-slate-500 hover:bg-slate-300'
                     }`}
-                  />
+                  >
+                    {isDone && !isCurrent ? (
+                      <span className="text-[9px]">✓</span>
+                    ) : (
+                      <span>{idx + 1}</span>
+                    )}
+                  </button>
                 );
               })}
             </div>
+          </div>
+        )}
 
+        {/* ================= STAGE 1: NHẬP TỪNG CHỈ TIÊU (Section VII & VIII) ================= */}
+        {stage === 'INPUT' && (
+          <div className="p-4 sm:p-5 flex-1 overflow-y-auto space-y-4">
             {/* KPI Title */}
             <div className="text-center pt-1">
               <h2 className="text-xl sm:text-2xl font-black text-[#003B70] tracking-tight uppercase">

@@ -28,6 +28,12 @@ const AppContent: React.FC = () => {
 
   // Render role-specific view based on activeTab
   const renderView = () => {
+    // Quản trị hệ thống (Administration) accessible across roles
+    if (activeTab === 'settings' || activeTab === 'officers' || activeTab === 'kpis') {
+      const subTab = activeTab === 'officers' ? 'OFFICERS' : activeTab === 'kpis' ? 'KPIS' : 'OFFICERS';
+      return <SettingsAndSyncView defaultSubTab={subTab} />;
+    }
+
     if (isStaff) {
       switch (activeTab) {
         case 'home':
@@ -56,12 +62,6 @@ const AppContent: React.FC = () => {
           return <ManagerKpiLookup onBackToHome={() => setActiveTab('home')} />;
         case 'reports':
           return <DirectorReportView />;
-        case 'officers':
-          return <UserManagement />;
-        case 'kpis':
-          return <KpiManagement />;
-        case 'settings':
-          return <SettingsAndSyncView />;
         case 'profile':
           return <EmployeeProfile />;
         case 'alerts':

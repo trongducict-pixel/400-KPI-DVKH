@@ -11,6 +11,7 @@ import {
   LogOut,
   Mail,
   Phone,
+  Settings,
   Shield,
   Target,
   UserCheck,
@@ -19,7 +20,7 @@ import { useApp } from '../../context/AppContext';
 import { formatDateVN, formatKpiValue, formatPercentage } from '../../utils/formatters';
 
 export const EmployeeProfile: React.FC = () => {
-  const { currentUser, selectedDate, kpis, targets, dailyEntries, logout, updateUser } = useApp();
+  const { currentUser, selectedDate, kpis, targets, dailyEntries, logout, updateUser, setActiveTab } = useApp();
   const [showPassword, setShowPassword] = useState(false);
   const [isChangingPass, setIsChangingPass] = useState(false);
   const [newPass, setNewPass] = useState('');
@@ -188,6 +189,25 @@ export const EmployeeProfile: React.FC = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Quản trị hệ thống shortcut */}
+      <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#003B70] flex items-center justify-center border border-blue-200">
+            <Settings className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-slate-900">TRUNG TÂM QUẢN TRỊ DVKH</div>
+            <div className="text-[11px] text-slate-500">Quản lý cán bộ, KPI, dữ liệu Sheets & Audit Log</div>
+          </div>
+        </div>
+        <button
+          onClick={() => setActiveTab('settings')}
+          className="px-3 py-1.5 bg-[#003B70] hover:bg-[#002d56] text-white rounded-xl text-xs font-bold transition-colors shadow-xs cursor-pointer"
+        >
+          Truy cập
+        </button>
       </div>
 
       {/* App & Workflow Info */}

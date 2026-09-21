@@ -8,6 +8,7 @@ import {
   LogOut,
   RefreshCw,
   RotateCcw,
+  Settings,
   ShieldCheck,
   Unlock,
   UserCheck,
@@ -126,6 +127,17 @@ export const Header: React.FC = () => {
             )}
           </div>
 
+          {/* Settings Quick Direct Button */}
+          <button
+            id="header-btn-settings"
+            onClick={() => setActiveTab('settings')}
+            className="flex items-center space-x-1 bg-[#002D56] hover:bg-[#002447] px-2.5 py-1.5 rounded-lg border border-blue-400/30 transition-all text-white text-xs font-semibold cursor-pointer"
+            title="Trung tâm Quản trị DVKH & Dữ liệu"
+          >
+            <Settings className="w-3.5 h-3.5 text-blue-300" />
+            <span className="hidden sm:inline">Quản trị</span>
+          </button>
+
           {/* User Switcher Dropdown */}
           <div className="relative">
             <button
@@ -210,18 +222,16 @@ export const Header: React.FC = () => {
                   </div>
 
                   <div className="p-2 bg-slate-50 border-t border-slate-200 space-y-1">
-                    {currentUser.role !== 'NHAN_VIEN' && (
-                      <button
-                        onClick={() => {
-                          setActiveTab('officers');
-                          setShowUserDropdown(false);
-                        }}
-                        className="w-full py-1.5 px-3 rounded-lg text-xs font-bold text-[#003B70] bg-blue-50 hover:bg-blue-100 flex items-center justify-center space-x-1.5 transition-colors"
-                      >
-                        <Users className="w-3.5 h-3.5" />
-                        <span>Quản trị cán bộ & Tài khoản</span>
-                      </button>
-                    )}
+                    <button
+                      onClick={() => {
+                        setActiveTab('settings');
+                        setShowUserDropdown(false);
+                      }}
+                      className="w-full py-1.5 px-3 rounded-lg text-xs font-bold text-[#003B70] bg-blue-50 hover:bg-blue-100 flex items-center justify-center space-x-1.5 transition-colors"
+                    >
+                      <Settings className="w-3.5 h-3.5" />
+                      <span>Trung tâm Quản trị DVKH</span>
+                    </button>
                     <button
                       onClick={() => {
                         setShowUserDropdown(false);

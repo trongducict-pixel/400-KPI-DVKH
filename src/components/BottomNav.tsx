@@ -28,11 +28,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ onOpenDailyEntry }) => {
     isHighlight?: boolean;
   }
 
-  // Navigation tabs for Staff: Nhập số liệu nhanh -> hoàn tất -> khi cần mới tra cứu KPI
+  // Navigation tabs for Staff: Nhập số liệu nhanh -> hoàn tất -> khi cần mới tra cứu KPI -> Quản trị -> Cá nhân
   const staffTabs: NavTabItem[] = [
     { id: 'home', label: 'Trang chủ', icon: Home },
     { id: 'entry', label: 'Nhập số liệu', icon: PlusCircle, isHighlight: true },
     { id: 'lookup', label: 'Tra cứu KPI', icon: BarChart3 },
+    { id: 'settings', label: 'Quản trị', icon: Settings },
     { id: 'profile', label: 'Cá nhân', icon: UserIcon },
   ];
 
