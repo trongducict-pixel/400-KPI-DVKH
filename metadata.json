@@ -1,0 +1,6 @@
+{
+  "name": "DVKH DAILY KPI - Báo Cáo Số Liệu Phòng DVKH",
+  "description": "Ứng dụng cập nhật số liệu thực hiện hàng ngày, tự động tổng hợp lũy kế, theo dõi KPI và quản trị báo cáo Giám đốc Phòng DVKH VietinBank Chi nhánh Ninh Bình.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
